@@ -67,4 +67,13 @@ public class ProductService {
                         .map(product, OfferView.class))
                 .collect(Collectors.toList());
     }
+
+    public List<OfferView> getAllProducts(Long id) {
+        return this.productRepository
+                .findAllByCategoryId(id)
+                .stream()
+                .map(product -> this.modelMapper
+                        .map(product, OfferView.class))
+                .collect(Collectors.toList());
+    }
 }

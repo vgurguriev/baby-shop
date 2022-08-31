@@ -21,7 +21,7 @@
                         <div class="d-flex justify-content-center card category-nav"
                              th:if="*{baseCategory == 'BABY'}">
                             <div class="d-flex justify-content-center card-body">
-                                <a href="" style="color: black;"
+                                <a th:href="@{/offers/category/{offerId}(offerId=*{id})}" style="color: black;"
                                    th:value="*{id}"
                                    th:text="*{name}">Category</a>
                             </div>
@@ -36,7 +36,7 @@
                         <div class="d-flex justify-content-center card category-nav"
                              th:if="*{baseCategory == 'MOMMY'}">
                             <div class="d-flex justify-content-center card-body">
-                                <a href="" style="color: black;"
+                                <a th:href="@{/offers/category/{offerId}(offerId=*{id})}" style="color: black;"
                                    th:text="*{name.toString()}">Category</a>
                             </div>
                         </div>
@@ -45,6 +45,9 @@
             </div>
             <div class="col-12 col-md-10">
                 <div class="container">
+                    <div class="d-flex justify-content-center" style="margin-top: 60px">
+                    <h1 th:if="${allOffers.isEmpty()}">We Don`t Have Any Offers Yet</h1>
+                    </div>
                     <div class="d-flex justify-content-center margin-bottom"
                          th:each="offer : ${allOffers}"
                          th:object="${offer}">

@@ -6,6 +6,7 @@ import com.example.babystore.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class OfferController {
     }
 
     @GetMapping()
-    public String mommyCategories(Model model) {
+    public String allCategories(Model model) {
         List<CategoryView> categoryViewList =
                 this.categoryService.getCategories();
 
@@ -30,6 +31,22 @@ public class OfferController {
 
         List<OfferView> allOffers = this.productService
                 .getAllProducts();
+
+        model.addAttribute("allOffers", allOffers);
+
+        return "offers";
+    }
+
+    @GetMapping("/category/{id}")
+    public String productsByCategory(@PathVariable("id") Long id,
+                                     Model model) {
+        List<CategoryView> categoryViewList =
+                this.categoryService.getCategories();
+
+        model.addAttribute("categories", categoryViewList);
+
+        List<OfferView> allOffers = this.productService
+                .getAllProducts(id);
 
         model.addAttribute("allOffers", allOffers);
 
