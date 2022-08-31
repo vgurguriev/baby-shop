@@ -1,0 +1,72 @@
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background-color: beige;
+}
+
+.navbar {
+  background-color: rgb(191, 200, 199);
+}
+
+.text-color-black {
+  color: black;
+}
+
+footer {
+  background-color: rgb(191, 200, 199);
+  margin-top: auto;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+section {
+  margin-top: auto;
+}
+
+.dropdown-toggle {
+  outline: none;
+}
+
+#nav-dropdown {
+  background-color: rgb(191, 200, 199);
+}
+
+.side-nav {
+  border-radius: 25px;
+}
+
+#product-card {
+  border-radius: 25px;
+}
+
+.category-text {
+  font-weight: bold;
+  font-size: larger;
+  color: black;
+}
+
+.margin-top {
+  margin-top: 15px;
+}
+
+.margin-bottom {
+  margin-bottom: 15px;
+}
+
+.category-nav {
+  margin-top: 5px;
+  border-radius: 55px;
+  height: 40px;
+}

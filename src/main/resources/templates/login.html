@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Baby</title>
+    <th:block th:include="~{/fragments/head}"/>
+</head>
+
+<body>
+<!--Navigation-->
+<div th:replace="fragments/header">Navbar</div>
+
+<main>
+    <section class="vh-100">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100 margin-top">
+                <div class="col-lg-12 col-xl-11">
+                    <div class="card text-black" style="border-radius: 25px;" id="card-login">
+                        <div class="card-body p-md-5">
+                            <div class="row justify-content-center" id="row-login">
+                                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Log In</p>
+
+                                    <form th:action="@{/users/login}"
+                                          th:method="POST"
+                                    >
+                                        <!-- Username input -->
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="username">Username</label>
+                                            <input
+                                                    value="email"
+                                                    id="username"
+                                                    th:value="${username}"
+                                                    name="username"
+                                                    type="text"
+                                                    min="2" max="50"
+                                                    class="form-control form-control-lg"
+                                                    placeholder="Enter a valid username"
+                                                    required/>
+                                        </div>
+
+                                        <!-- Password input -->
+                                        <div class="form-outline mb-3">
+                                            <label class="form-label" for="password">Password</label>
+
+                                            <input value="password"
+                                                   id="password"
+                                                   name="password"
+                                                   type="password"
+                                                   class="form-control form-control-lg"
+                                                   placeholder="Enter password"/>
+                                        </div>
+
+                                        <p th:if="${bad_credentials}" class="errors alert alert-danger">
+                                            Invalid username or password.
+                                        </p>
+
+                                        <div class="text-center text-lg-start mt-4 pt-2">
+                                            <button type="submit" class="btn btn-primary btn-lg"
+                                                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Login
+                                            </button>
+                                            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/users/register"
+                                                                                                              class="link-danger">Register</a>
+                                            </p>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                                <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                                         class="img-fluid" alt="Sample image">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+<!--Footer-->
+<th:block th:include="~{/fragments/footer}"/>
+
+</body>
+</html>
