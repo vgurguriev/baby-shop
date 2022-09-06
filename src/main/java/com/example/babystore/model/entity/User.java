@@ -25,6 +25,9 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> role;
 
+    @OneToOne(mappedBy = "user")
+    private Cart cart;
+
     public User(Long id, String username, String password,
                 String email, String name, List<Role> role) {
         this.id = id;
@@ -88,6 +91,15 @@ public class User {
 
     public User setRole(List<Role> role) {
         this.role = role;
+        return this;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public User setCart(Cart cart) {
+        this.cart = cart;
         return this;
     }
 }

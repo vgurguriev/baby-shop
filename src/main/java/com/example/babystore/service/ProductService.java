@@ -76,4 +76,10 @@ public class ProductService {
                         .map(product, OfferView.class))
                 .collect(Collectors.toList());
     }
+
+    public Product findProductById(Long id) {
+        return this.productRepository
+                .findById(id)
+                .orElseThrow();
+    }
 }

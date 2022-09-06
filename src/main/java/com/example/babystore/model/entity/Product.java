@@ -37,6 +37,9 @@ public class Product {
     @ManyToOne
     private User createdBy;
 
+    @OneToOne(mappedBy = "product")
+    private CartItem cartItem;
+
     public Long getId() {
         return id;
     }

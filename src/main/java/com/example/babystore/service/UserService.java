@@ -1,6 +1,7 @@
 package com.example.babystore.service;
 
 import com.example.babystore.model.dto.UserRegistrationDto;
+import com.example.babystore.model.entity.Cart;
 import com.example.babystore.model.entity.User;
 import com.example.babystore.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -51,5 +52,11 @@ public class UserService {
         SecurityContextHolder.
                 getContext().
                 setAuthentication(auth);
+    }
+
+    public User findByUsername(String username) {
+        return this.userRepository
+                .findByUsername(username)
+                .orElseThrow();
     }
 }

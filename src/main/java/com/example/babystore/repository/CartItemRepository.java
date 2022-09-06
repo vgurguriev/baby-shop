@@ -1,9 +1,9 @@
 package com.example.babystore.repository;
 
-import com.example.babystore.model.entity.Brand;
+import com.example.babystore.model.entity.CartItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BrandRepository extends JpaRepository<Brand, Long> {
+public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 }
