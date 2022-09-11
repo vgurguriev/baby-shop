@@ -1,6 +1,7 @@
 package com.example.babystore.web;
 
 import com.example.babystore.model.entity.User;
+import com.example.babystore.model.view.CartView;
 import com.example.babystore.service.CartService;
 import com.example.babystore.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -27,13 +28,16 @@ public class CartController {
         if (principal == null) {
             return "redirect:/users/login";
         }
-//        User user = this.userService.findByUsername(principal.getName());
-//        Cart cart = user.getCart();
+        User user = this.userService.findByUsername(principal.getName());
+
+        CartView cart = this.cartService.getCurrentUserCart(user);
+
+        model.addAttribute("cart", cart);
 
         return "cart";
     }
 
-    @GetMapping("/add-to-cart{id}")
+    @GetMapping("/add-to-cart/{id}")
     public String addProductToCart(@PathVariable("id") Long id,
                                    Principal principal) {
 

@@ -13,6 +13,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.HashSet;
+
 @Service
 public class UserService {
 
@@ -33,6 +36,11 @@ public class UserService {
         User userToRegister = this.modelMapper.map(userRegistrationDto, User.class)
                 .setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
 
+
+        userToRegister.setCart(new Cart()
+                .setUser(userToRegister)
+                .setTotalPrice(BigDecimal.ZERO)
+                .setCartItems(new HashSet<>()));
         this.userRepository.save(userToRegister);
         login(userToRegister);
 

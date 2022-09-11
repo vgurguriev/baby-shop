@@ -10,12 +10,13 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer quantity;
-    private BigDecimal totalPrice;
+    private BigDecimal subPrice;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "cart_id", referencedColumnName = "id")
     private Cart cart;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 
@@ -37,12 +38,20 @@ public class CartItem {
         return this;
     }
 
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
+    public BigDecimal getSubPrice() {
+        return subPrice;
     }
 
-    public CartItem setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
+    public CartItem setSubPrice(BigDecimal subPrice) {
+        this.subPrice = subPrice;
+        return this;
+    }
+    public Product getProduct() {
+        return product;
+    }
+
+    public CartItem setProduct(Product product) {
+        this.product = product;
         return this;
     }
 
@@ -52,15 +61,6 @@ public class CartItem {
 
     public CartItem setCart(Cart cart) {
         this.cart = cart;
-        return this;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public CartItem setProduct(Product product) {
-        this.product = product;
         return this;
     }
 }

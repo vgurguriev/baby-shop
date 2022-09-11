@@ -14,7 +14,7 @@ public class Category {
     @Column(    nullable = false)
     private CategoryEnum name;
 
-    @ManyToOne
+    @ManyToOne()
     private BaseCategory baseCategory;
 
     public Long getId() {
