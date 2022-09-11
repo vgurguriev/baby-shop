@@ -2,6 +2,7 @@ package com.example.babystore.model.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,13 +13,15 @@ public class Cart {
     private Long id;
     private BigDecimal totalPrice;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cart", fetch = FetchType.EAGER)
+    private Set<CartItem> cartItems;
+
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<CartItem> cartItems;
-
+    public Cart() {
+    }
     public Long getId() {
         return id;
     }
@@ -37,21 +40,21 @@ public class Cart {
         return this;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public Cart setUser(User user) {
-        this.user = user;
-        return this;
-    }
-
     public Set<CartItem> getCartItems() {
         return cartItems;
     }
 
     public Cart setCartItems(Set<CartItem> cartItems) {
         this.cartItems = cartItems;
+        return this;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Cart setUser(User user) {
+        this.user = user;
         return this;
     }
 }

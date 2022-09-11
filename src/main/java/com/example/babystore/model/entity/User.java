@@ -1,6 +1,7 @@
 package com.example.babystore.model.entity;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Entity
@@ -23,9 +24,14 @@ public class User {
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
     private List<Role> role;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
 
     public User(Long id, String username, String password,
@@ -95,7 +101,7 @@ public class User {
     }
 
     public Cart getCart() {
-        return cart;
+        return this.cart;
     }
 
     public User setCart(Cart cart) {

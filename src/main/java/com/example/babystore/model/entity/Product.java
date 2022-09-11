@@ -37,7 +37,7 @@ public class Product {
     @ManyToOne
     private User createdBy;
 
-    @OneToOne(mappedBy = "product")
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     private CartItem cartItem;
 
     public Long getId() {
@@ -118,6 +118,15 @@ public class Product {
 
     public Product setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
+        return this;
+    }
+
+    public CartItem getCartItem() {
+        return cartItem;
+    }
+
+    public Product setCartItem(CartItem cartItem) {
+        this.cartItem = cartItem;
         return this;
     }
 }

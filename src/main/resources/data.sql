@@ -21,3 +21,6 @@ INSERT INTO brands(id, name)
 VALUES (1, 'LORELLY'),
        (2, 'CHIPOLINO'),
        (3, 'KIKKABOO');
+
+INSERT INTO products(id, name, price, picture_url, color, category_id, brand_id, description)
+VALUES (1, 'kolichka', 20, 'https://s13emagst.akamaized.net/products/37730/37729824/images/res_72b0911ef1b50d4a8968cdc6b8c88df1.jpg', 'RED', 1, 1, 1)
