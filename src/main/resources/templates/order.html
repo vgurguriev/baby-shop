@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Baby</title>
+    <th:block th:include="~{/fragments/head}"/>
+</head>
+
+<body>
+<!--Navigation-->
+<div th:replace="fragments/header">Navbar</div>
+
+<div class="container chekout-container">
+    <main>
+        <div class="py-5 text-center">
+            <h2>Order</h2>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-md-5 col-lg-4 order-md-last">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span style="color: green;">Your cart</span>
+                    <span class="primary"
+                          style="color:green;"
+                    th:text="${cart.getCartItems().size()}">3</span>
+                </h4>
+                <ul class="list-group mb-3"
+                th:each="p : ${cart.cartItems}"
+                th:object="${p}">
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0" th:text="*{product.name}">Product name</h6>
+                            <small class="text-muted"
+                                   th:text="*{product.category.name.getValue()}">Brief description</small>
+                        </div>
+                        <span class="text-muted" th:text="*{product.price}">$12</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total</span>
+                        <strong th:text="${cart.totalPrice}">$20</strong>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-7 col-lg-8">
+                <h4 class="mb-3">Order details</h4>
+                <form class="needs-validation" novalidate
+                th:method="POST"
+                th:action="@{/order}"
+                th:object="${orderDto}">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label for="firstName"
+                                   class="form-label">First name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="firstName"
+                                   th:field="*{firstName}"
+                                   id="firstName" required>
+                            <div class="invalid-feedback">
+                                Valid first name is required.
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="lastName"
+                                   class="form-label">Last name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="lastName"
+                                   th:field="*{lastName}"
+                                   name="lastName"
+                                   required>
+                            <div class="invalid-feedback">
+                                Valid last name is required.
+                            </div>
+                        </div>
+
+                        <div class="col-12 margin-top">
+                            <label for="username"
+                                   class="form-label">Username</label>
+                            <div class="input-group has-validation">
+                                <input type="text"
+                                       class="form-control"
+                                       id="username"
+                                       th:field="*{username}"
+                                       name="username"
+                                       required>
+                                <div class="invalid-feedback">
+                                    Your username is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 margin-top">
+                            <label for="email"
+                                   class="form-label">Email</label>
+                            <input type="email"
+                                   class="form-control"
+                                   th:field="*{email}"
+                                   name="email"
+                                   id="email">
+                            <div class="invalid-feedback">
+                                Please enter a valid email address for shipping updates.
+                            </div>
+                        </div>
+
+                        <div class="col-12 margin-top">
+                            <label for="address"
+                                   class="form-label">Address</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="address"
+                                   th:field="*{address}"
+                                   name="address"
+                                   required>
+                            <div class="invalid-feedback">
+                                Please enter your shipping address.
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 margin-top">
+                            <label for="country"
+                                   class="form-label">Country</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="country"
+                                   th:field="*{country}"
+                                   name="country"
+                                   required>
+                            <div class="invalid-feedback">
+                                Valid country is required.
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 margin-top">
+                            <label for="city"
+                                   class="form-label">City</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="city"
+                                   name="city"
+                                   th:field="*{city}"
+                                   required>
+                            <div class="invalid-feedback">
+                                Valid city is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <button style="margin-bottom: 15px;"
+                            class="w-100 btn btn-primary btn-lg" type="submit">Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+        integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+        crossorigin="anonymous"></script>
+<!--Footer-->
+<th:block th:include="~{/fragments/footer}"/>
+
+</body>
+</html>

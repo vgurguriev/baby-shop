@@ -2,7 +2,6 @@ package com.example.babystore.model.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity

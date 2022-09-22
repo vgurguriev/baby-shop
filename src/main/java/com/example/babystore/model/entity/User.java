@@ -2,7 +2,10 @@ package com.example.babystore.model.entity;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -29,19 +32,29 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
-    private List<Role> role;
+    private Set<Role> role;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Order> orders;
+
+    private String address;
+
+    private String country;
+
+    private String city;
+
     public User(Long id, String username, String password,
-                String email, String name, List<Role> role) {
+                String email, String name, Set<Role> role) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.name = name;
         this.role = role;
+        this.orders = new HashSet<>();
     }
 
     public User() {}
@@ -91,11 +104,11 @@ public class User {
         return this;
     }
 
-    public List<Role> getRole() {
+    public Set<Role> getRole() {
         return role;
     }
 
-    public User setRole(List<Role> role) {
+    public User setRole(Set<Role> role) {
         this.role = role;
         return this;
     }
@@ -106,6 +119,42 @@ public class User {
 
     public User setCart(Cart cart) {
         this.cart = cart;
+        return this;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public User setOrders(Set<Order> orders) {
+        this.orders = orders;
+        return this;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public User setAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public User setCountry(String country) {
+        this.country = country;
+        return this;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public User setCity(String city) {
+        this.city = city;
         return this;
     }
 }

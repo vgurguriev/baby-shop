@@ -11,7 +11,8 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100%;
-  background-color: beige;
+  background-image: url('https://ak.picdn.net/shutterstock/videos/1051154707/thumb/1.jpg?ip=x480');
+
 }
 
 .navbar {
@@ -105,9 +106,25 @@ section {
     display: inline-block; width: 8rem;
   }
 
-
-
   table#cart tfoot td{display:block; }
   table#cart tfoot td .btn{display:block;}
-
 }
+
+.main-picture {
+  background-image: url('https://expertreviews.b-cdn.net/sites/expertreviews/files/styles/er_main_wide/public/2021/04/best_baby_toys_-_lead.jpg?itok=z6YRlgci');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+.frame {
+  border-style: solid;
+  border-radius: 10px;
+  border-color: grey;
+  background-color: rgb(235, 240, 240)
+}
+
+.brand-img {
+  height: 80px;
+}
+

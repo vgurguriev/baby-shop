@@ -13,8 +13,8 @@
             <a class="navbar-brand text-color-black" href="/">Home</a>
 
             <a class="nav-item text-color-black" href="/offers">Catalog</a>
-            <a class="nav-item text-color-black" href="/users/register">Register</a>
-            <a class="nav-item text-color-black" href="/users/login">Login</a>
+            <a class="nav-item text-color-black" href="/users/register" sec:authorize="!isAuthenticated()">Register</a>
+            <a class="nav-item text-color-black" href="/users/login" sec:authorize="!isAuthenticated()">Login</a>
 
             <!-- <svg class="position-end" xmlns="http://www.w3.org/2000/svg" width="50" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
                 <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -25,7 +25,7 @@
                    aria-expanded="false">
                     Account
                 </a>
-                <ul class="dropdown-menu" id="nav-dropdown">
+                <ul class="dropdown-menu" id="nav-dropdown" sec:authorize="isAuthenticated()">
                     <li><a class="dropdown-item" href="#">My Profile</a></li>
                     <li><a class="dropdown-item" href="#">Admin panel</a></li>
                     <li><a class="dropdown-item" href="/product/add">Add Product</a></li>
@@ -39,7 +39,7 @@
                 </ul>
             </div>
 
-            <a class="nav-item text-color-black" href="/cart">Cart</a>
+            <a class="nav-item text-color-black" href="/cart" sec:authorize="isAuthenticated()">Cart</a>
 
             <div class="text-color-black" sec:authorize="isAuthenticated()">Welcome,
                 <th:block
