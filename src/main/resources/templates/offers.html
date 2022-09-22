@@ -59,9 +59,9 @@
                                         th:src="*{pictureUrl}" alt="img"></div>
                                 <div class="col-md-6 mt-1">
                                     <h5 th:text="*{name}">Name</h5>
-                                    <div class="mt-1 mb-1 spec-1"><span>Color</span>
+                                    <div th:text="*{color}" class="mt-1 mb-1 spec-1"><span>Color</span>
                                     </div>
-                                    <p th:text="*{description}"
+                                    <p th:text="*{brand}"
                                        class="text-justify text-truncate para mb-0">Description<br><br></p>
                                 </div>
                                 <div class="align-items-center align-content-center col-md-3 border-left mt-1">
@@ -70,16 +70,14 @@
                                     </div>
                                     <h6 class="text-success">Free shipping</h6>
                                     <div class="d-flex flex-column mt-4">
-                                        <a href="">
+                                        <a th:href="@{/product/details/{id}(id=*{id})}">
                                             <button class="btn btn-primary btn-sm" type="button">Details</button>
                                         </a>
-                                        <form th:method="POST">
                                             <a th:href="@{/add-to-cart/{id}(id=*{id})}">
                                                 <button class="btn btn-outline-primary btn-sm mt-2" type="button">Add to
                                                     cart
                                                 </button>
                                             </a>
-                                        </form>
                                     </div>
                                 </div>
                             </div>

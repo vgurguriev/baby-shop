@@ -1,6 +1,6 @@
 package com.example.babystore.web;
 import com.example.babystore.model.view.CategoryView;
-import com.example.babystore.model.view.OfferView;
+import com.example.babystore.model.view.ProductView;
 import com.example.babystore.service.CategoryService;
 import com.example.babystore.service.ProductService;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,7 @@ public class OfferController {
 
         model.addAttribute("categories", categoryViewList);
 
-        List<OfferView> allOffers = this.productService
+        List<ProductView> allOffers = this.productService
                 .getAllProducts();
 
         model.addAttribute("allOffers", allOffers);
@@ -45,7 +45,7 @@ public class OfferController {
 
         model.addAttribute("categories", categoryViewList);
 
-        List<OfferView> allOffers = this.productService
+        List<ProductView> allOffers = this.productService
                 .getAllProducts(id);
 
         model.addAttribute("allOffers", allOffers);

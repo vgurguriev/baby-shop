@@ -5,7 +5,9 @@ import com.example.babystore.model.entity.Brand;
 import com.example.babystore.model.entity.Category;
 import com.example.babystore.model.entity.Product;
 import com.example.babystore.model.entity.User;
-import com.example.babystore.model.view.OfferView;
+import com.example.babystore.model.entity.enums.BrandEnum;
+import com.example.babystore.model.entity.enums.ColorEnum;
+import com.example.babystore.model.view.ProductView;
 import com.example.babystore.repository.BrandRepository;
 import com.example.babystore.repository.CategoryRepository;
 import com.example.babystore.repository.ProductRepository;
@@ -59,22 +61,36 @@ public class ProductService {
         this.productRepository.save(newProduct);
     }
 
-    public List<OfferView> getAllProducts() {
+    public List<ProductView> getAllProducts() {
         return this.productRepository
                 .findAll()
                 .stream()
-                .map(product -> this.modelMapper
-                        .map(product, OfferView.class))
+                .map(product -> new ProductView()
+                        .setId(product.getId())
+                        .setName(product.getName())
+                        .setPrice(product.getPrice())
+                        .setDescription(product.getDescription())
+                        .setPictureUrl(product.getPictureUrl())
+                        .setBrand(BrandEnum.valueOf(product.getBrand()
+                                .getName().name()).getValue())
+                        .setColor(ColorEnum.valueOf(product.getColor()
+                                .name()).getValue()))
                 .collect(Collectors.toList());
     }
 
-    public List<OfferView> getAllProducts(Long id) {
+    public List<ProductView> getAllProducts(Long id) {
         return this.productRepository
                 .findAllByCategoryId(id)
                 .stream()
-                .map(product -> this.modelMapper
-                        .map(product, OfferView.class))
+                .map(product -> new ProductView()
+                        .setId(product.getId())
+                        .setName(product.getName())
+                        .setPrice(product.getPrice())
+                        .setDescription(product.getDescription())
+                        .setPictureUrl(product.getPictureUrl())
+                        .setBrand(BrandEnum.valueOf(product.getBrand().getName().name()).getValue()))
                 .collect(Collectors.toList());
+
     }
 
     public Product findProductById(Long id) {
