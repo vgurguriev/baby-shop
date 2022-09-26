@@ -1,38 +1,44 @@
 package com.example.babystore.service;
 
 import com.example.babystore.model.dto.OrderDto;
-import com.example.babystore.model.entity.CartItem;
-import com.example.babystore.model.entity.Order;
-import com.example.babystore.model.entity.Product;
-import com.example.babystore.model.entity.User;
-import com.example.babystore.repository.OrderRepository;
-import com.example.babystore.repository.UserRepository;
-import org.modelmapper.ModelMapper;
+import com.example.babystore.model.entity.*;
+import com.example.babystore.repository.*;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
 public class OrderService {
 
-    private final ModelMapper modelMapper;
+    private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
-
     private final UserRepository userRepository;
+    private final CartItemRepository cartItemRepository;
+    private final CartRepository cartRepository;
 
-    public OrderService(ModelMapper modelMapper, OrderRepository orderRepository, UserRepository userRepository) {
-        this.modelMapper = modelMapper;
+    public OrderService(ProductRepository productRepository,
+                        OrderRepository orderRepository,
+                        UserRepository userRepository, CartItemRepository cartItemRepository, CartRepository cartRepository) {
+        this.productRepository = productRepository;
+
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
+        this.cartItemRepository = cartItemRepository;
+        this.cartRepository = cartRepository;
     }
 
     public void addOrder(OrderDto orderDto, User user) {
 
         List<Product> products = new ArrayList<>();
 
-        for (CartItem product : user.getCart().getCartItems()) {
-            products.add(product.getProduct());
+        for (CartItem cartItem : user.getCart().getCartItems()) {
+            products.add(cartItem.getProduct());
+            Product product = cartItem.getProduct();
+            product.setSales(product.getSales() + 1);
+            this.productRepository.save(product);
         }
 
         Order order = new Order()
@@ -47,7 +53,6 @@ public class OrderService {
                 .setAddress(orderDto.getAddress())
                 .setCountry(orderDto.getCountry());
 
-        user.getCart().getCartItems().clear();
-        this.userRepository.save(user);
+
     }
 }

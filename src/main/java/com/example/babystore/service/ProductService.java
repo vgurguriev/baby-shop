@@ -7,6 +7,7 @@ import com.example.babystore.model.entity.Product;
 import com.example.babystore.model.entity.User;
 import com.example.babystore.model.entity.enums.BrandEnum;
 import com.example.babystore.model.entity.enums.ColorEnum;
+import com.example.babystore.model.view.ProductPictureAndNameView;
 import com.example.babystore.model.view.ProductView;
 import com.example.babystore.repository.BrandRepository;
 import com.example.babystore.repository.CategoryRepository;
@@ -57,6 +58,7 @@ public class ProductService {
         newProduct.setCreatedBy(user);
         newProduct.setCategory(category);
         newProduct.setBrand(brand);
+        newProduct.setSales(0);
 
         this.productRepository.save(newProduct);
     }
@@ -88,9 +90,11 @@ public class ProductService {
                         .setPrice(product.getPrice())
                         .setDescription(product.getDescription())
                         .setPictureUrl(product.getPictureUrl())
-                        .setBrand(BrandEnum.valueOf(product.getBrand().getName().name()).getValue()))
+                        .setBrand(BrandEnum.valueOf(product.getBrand()
+                                .getName().name()).getValue())
+                        .setColor(ColorEnum.valueOf(product.getColor()
+                                .name()).getValue()))
                 .collect(Collectors.toList());
-
     }
 
     public Product findProductById(Long id) {
@@ -98,4 +102,29 @@ public class ProductService {
                 .findById(id)
                 .orElseThrow();
     }
+
+    public ProductView findAndConvertProductById(Long id) {
+        return this.productRepository
+                .findById(id)
+                .map(product -> new ProductView()
+                        .setId(product.getId())
+                        .setName(product.getName())
+                        .setPrice(product.getPrice())
+                        .setDescription(product.getDescription())
+                        .setPictureUrl(product.getPictureUrl())
+                        .setBrand(BrandEnum.valueOf(product.getBrand()
+                                .getName().name()).getValue())
+                        .setColor(ColorEnum.valueOf(product.getColor()
+                                .name()).getValue()))
+                .orElseThrow();
+    }
+
+    public List<ProductPictureAndNameView> getFourProductsByCategory(Long id) {
+        return this.productRepository.findTop4ByCategoryIdOrderBySalesDesc(id)
+                .stream()
+                .map(product -> modelMapper
+                        .map(product, ProductPictureAndNameView.class))
+                .collect(Collectors.toList());
+    }
 }
+

@@ -4,7 +4,11 @@ public enum ColorEnum {
     RED("Red"),
     BLUE("Blue"),
     GREEN("Green"),
-    PINK("Pink");
+    PINK("Pink"),
+    BEIGE("Beige"),
+    WHITE("White"),
+    COLORFUL("Colorful"),
+    YELLOW("Yellow");
 
     private final String value;
 

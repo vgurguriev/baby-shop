@@ -1,7 +1,12 @@
 package com.example.babystore.model.entity;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -13,7 +18,7 @@ public class Cart {
     private BigDecimal totalPrice;
 
     @OneToMany(mappedBy = "cart", fetch = FetchType.EAGER)
-    private Set<CartItem> cartItems;
+    private Set<CartItem> cartItems = new HashSet<>();
 
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -55,5 +60,17 @@ public class Cart {
     public Cart setUser(User user) {
         this.user = user;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cart cart)) return false;
+        return Objects.equals(id, cart.id) && Objects.equals(totalPrice, cart.totalPrice) && Objects.equals(cartItems, cart.cartItems) && Objects.equals(user, cart.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, totalPrice, cartItems, user);
     }
 }

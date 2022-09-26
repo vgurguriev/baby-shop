@@ -6,6 +6,7 @@ import com.example.babystore.service.CartService;
 import com.example.babystore.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,5 +50,14 @@ public class CartController {
         this.cartService.addItemToCart(id, user);
 
         return "redirect:/offers";
+    }
+
+    @DeleteMapping("/cart/delete/{id}")
+    public String deleteItem(@PathVariable("id") String id, Principal principal) {
+        Long itemId = Long.parseLong(id);
+        User user = this.userService.findByUsername(principal.getName());
+        this.cartService.deleteCartItem(itemId, user);
+
+        return "redirect:/cart";
     }
 }

@@ -46,7 +46,11 @@
                 </td>
                 <td data-th="Subtotal" class="text-center" th:text="*{getSubPrice()}">1.99</td>
                 <td class="actions" data-th="">
-                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                    <form th:method="delete"
+                    th:action="@{/cart/delete/{id}(id=*{product.id})}">
+                    <a><button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-o"></i></button>
+                    </a>
+                    </form>
                 </td>
             </tr>
             </tbody>

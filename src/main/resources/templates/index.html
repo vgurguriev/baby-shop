@@ -13,46 +13,20 @@
 <main>
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light main-picture">
         <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <h1 style="color: black;" class="display-4 fw-normal">All you need for your newborn baby is here</h1>
-            <a class="btn btn-outline-secondary" href="#" style="color: black;">Shop now</a>
+            <h1 style="color: black;" class="display-4 fw-normal">Welcome :)</h1>
+            <a class="btn btn-outline-secondary" href="/offers" style="color: black;">Shop now</a>
         </div>
     </div>
 
     <div class="container frame">
         <h3 class="margin-top">Strollers</h3>
         <div class="row">
-            <div class="col">
+            <div class="col" th:each="s : ${strollers}"
+                 th:object="${s}">
                 <div class="card border-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
+                    <div class="card-header" th:text="*{name}">Name</div>
                     <img style="height: 200px;"
-                         src="https://ae01.alicdn.com/kf/H55086950c1e8423186ff0fab2824affcw/Belecoo-baby-stroller-3-in-1-High-landscape-stollers-Eco-Leather-Shock-Absorber-four-wheel-trolley.jpg_Q90.jpg_.webp"
-                         alt="img">
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card border-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
-                    <img style="height: 200px;"
-                         src="https://ae01.alicdn.com/kf/H55086950c1e8423186ff0fab2824affcw/Belecoo-baby-stroller-3-in-1-High-landscape-stollers-Eco-Leather-Shock-Absorber-four-wheel-trolley.jpg_Q90.jpg_.webp"
-                         alt="img">
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card border-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
-                    <img style="height: 200px;"
-                         src="https://ae01.alicdn.com/kf/H55086950c1e8423186ff0fab2824affcw/Belecoo-baby-stroller-3-in-1-High-landscape-stollers-Eco-Leather-Shock-Absorber-four-wheel-trolley.jpg_Q90.jpg_.webp"
-                         alt="img">
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card border-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
-                    <img style="height: 200px;"
-                         src="https://ae01.alicdn.com/kf/H55086950c1e8423186ff0fab2824affcw/Belecoo-baby-stroller-3-in-1-High-landscape-stollers-Eco-Leather-Shock-Absorber-four-wheel-trolley.jpg_Q90.jpg_.webp"
+                         th:src="*{pictureUrl}"
                          alt="img">
                 </div>
             </div>
@@ -62,38 +36,12 @@
     <div class="container frame margin-top">
         <h3 class="margin-top">Toys</h3>
         <div class="row">
-            <div class="col">
+            <div class="col" th:each="t : ${toys}"
+                 th:object="${t}">
                 <div class="card border-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
+                    <div class="card-header" th:text="*{name}">Name</div>
                     <img style="height: 200px; width: 250px;"
-                         src="https://images.ctfassets.net/6m9bd13t776q/bqUH8lEexU0kMyOeqEWGo/ad1a98839ab638f10a773bb01210a553/developmental-baby-toys-sassy-ring-rattle-750x550.jpg?q=75"
-                         alt="img">
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card border-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
-                    <img style="height: 200px;"
-                         src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1662569799-aden-anais-baby-activity-gym-4-1662569784.jpg"
-                         alt="img">
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card border-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
-                    <img style="height: 200px;"
-                         src="https://ae01.alicdn.com/kf/H55086950c1e8423186ff0fab2824affcw/Belecoo-baby-stroller-3-in-1-High-landscape-stollers-Eco-Leather-Shock-Absorber-four-wheel-trolley.jpg_Q90.jpg_.webp"
-                         alt="img">
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card border-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
-                    <img style="height: 200px;"
-                         src="https://ae01.alicdn.com/kf/H55086950c1e8423186ff0fab2824affcw/Belecoo-baby-stroller-3-in-1-High-landscape-stollers-Eco-Leather-Shock-Absorber-four-wheel-trolley.jpg_Q90.jpg_.webp"
+                         th:src="*{pictureUrl}"
                          alt="img">
                 </div>
             </div>
@@ -103,38 +51,12 @@
     <div class="container frame margin-top">
         <h3 class="margin-top">Baby Clothes</h3>
         <div class="row">
-            <div class="col">
+            <div class="col" th:each="bc : ${babyClothes}"
+            th:object="${bc}">
                 <div class="card border-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
+                    <div class="card-header" th:text="*{name}">Name</div>
                     <img style="height: 200px;"
-                         src="https://ae01.alicdn.com/kf/H55086950c1e8423186ff0fab2824affcw/Belecoo-baby-stroller-3-in-1-High-landscape-stollers-Eco-Leather-Shock-Absorber-four-wheel-trolley.jpg_Q90.jpg_.webp"
-                         alt="img">
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card border-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
-                    <img style="height: 200px;"
-                         src="https://ae01.alicdn.com/kf/H55086950c1e8423186ff0fab2824affcw/Belecoo-baby-stroller-3-in-1-High-landscape-stollers-Eco-Leather-Shock-Absorber-four-wheel-trolley.jpg_Q90.jpg_.webp"
-                         alt="img">
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card border-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
-                    <img style="height: 200px;"
-                         src="https://ae01.alicdn.com/kf/H55086950c1e8423186ff0fab2824affcw/Belecoo-baby-stroller-3-in-1-High-landscape-stollers-Eco-Leather-Shock-Absorber-four-wheel-trolley.jpg_Q90.jpg_.webp"
-                         alt="img">
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card border-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header">Header</div>
-                    <img style="height: 200px;"
-                         src="https://ae01.alicdn.com/kf/H55086950c1e8423186ff0fab2824affcw/Belecoo-baby-stroller-3-in-1-High-landscape-stollers-Eco-Leather-Shock-Absorber-four-wheel-trolley.jpg_Q90.jpg_.webp"
+                         th:src="*{pictureUrl}"
                          alt="img">
                 </div>
             </div>

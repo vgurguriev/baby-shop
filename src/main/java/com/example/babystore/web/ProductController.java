@@ -1,5 +1,6 @@
 package com.example.babystore.web;
 import com.example.babystore.model.dto.AddProductDto;
+import com.example.babystore.model.view.ProductView;
 import com.example.babystore.service.BrandService;
 import com.example.babystore.service.CategoryService;
 import com.example.babystore.service.ProductService;
@@ -68,7 +69,7 @@ public class ProductController {
     String details(@PathVariable("id") Long id,
                    Model model) {
 
-
+        ProductView productView = this.productService.findAndConvertProductById(id);
         return "product-details";
     }
 }

@@ -8,11 +8,11 @@ import com.example.babystore.model.view.CartView;
 import com.example.babystore.repository.CartItemRepository;
 import com.example.babystore.repository.CartRepository;
 import com.example.babystore.repository.ProductRepository;
+import com.example.babystore.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -21,15 +21,16 @@ public class CartService {
     private final ProductService productService;
     private final CartItemRepository cartItemRepository;
     private final CartRepository cartRepository;
-
     private final ProductRepository productRepository;
+    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
-    public CartService(ProductService productService, CartItemRepository cartItemRepository, CartRepository cartRepository, ProductRepository productRepository, ModelMapper modelMapper) {
+    public CartService(ProductService productService, CartItemRepository cartItemRepository, CartRepository cartRepository, ProductRepository productRepository, UserRepository userRepository, ModelMapper modelMapper) {
         this.productService = productService;
         this.cartItemRepository = cartItemRepository;
         this.cartRepository = cartRepository;
         this.productRepository = productRepository;
+        this.userRepository = userRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -76,5 +77,23 @@ public class CartService {
                         .setTotalPrice(cart.getTotalPrice()))
                 .findFirst()
                 .orElseThrow();
+    }
+
+    public void deleteCartItem(Long id, User user) {
+        Cart cart = user.getCart();
+
+        Set<CartItem> cartItems = cart.getCartItems();
+
+        CartItem item = this.cartItemRepository
+                .findByProductId(id);
+
+        cartItems.remove(item);
+        cartItemRepository.deleteById(item.getId());
+
+        cart.setTotalPrice(cart.getTotalPrice()
+                .subtract(item.getSubPrice()));
+
+        cart.setCartItems(cartItems);
+        cartRepository.save(cart);
     }
 }

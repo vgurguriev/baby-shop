@@ -30,6 +30,8 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    private Integer sales;
+
     @ManyToOne
     private Category category;
 
@@ -146,6 +148,15 @@ public class Product {
 
     public Product setOrders(List<Order> orders) {
         this.orders = orders;
+        return this;
+    }
+
+    public Integer getSales() {
+        return sales;
+    }
+
+    public Product setSales(Integer sales) {
+        this.sales = sales;
         return this;
     }
 }
