@@ -37,13 +37,13 @@ public class OrderService {
         List<Product> products = new ArrayList<>();
 
         for (CartItem cartItem : user.getCart().getCartItems()) {
-            products.add(cartItem.getProduct());
             Product product = cartItem.getProduct();
+            products.add(product);
             product.setSales(product.getSales() + 1);
             product.setCartItem(null);
             cartItem.setCart(null);
             cartItem.setProduct(null);
-            this.cartItemRepository.deleteById(cartItem.getId());
+            this.cartItemRepository.save(cartItem);
             this.productRepository.save(product);
         }
 
@@ -60,7 +60,7 @@ public class OrderService {
                 .setCountry(orderDto.getCountry());
 
         user.getCart().setTotalPrice(BigDecimal.ZERO);
+        user.getCart().getCartItems().clear();
         userRepository.save(user);
-
     }
 }

@@ -13,7 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class CartService {
@@ -36,21 +36,34 @@ public class CartService {
 
     public void addItemToCart(Long id, User user) {
         Product product = this.productService.findProductById(id);
-//        TODO: fix quantity
-        int quantity = 1;
+//
         Cart cart = user.getCart();
 
         Set<CartItem> cartItems = cart.getCartItems();
 
+
         CartItem cartItem = new CartItem()
                 .setProduct(product)
-                .setSubPrice(BigDecimal.valueOf(quantity)
+                .setSubPrice(BigDecimal.valueOf(1)
                         .multiply(product.getPrice()))
-                .setQuantity(quantity)
+                .setQuantity(1)
                 .setCart(cart);
 
-        product.setCartItem(cartItem);
 
+
+        for (CartItem item : cartItems) {
+            if (item.getProduct().getName().equals(product.getName())) {
+                item.setQuantity(cartItem.getQuantity() + 1);
+                item.setSubPrice(BigDecimal.valueOf(item.getQuantity())
+                        .multiply(product.getPrice()));
+                this.cartItemRepository.save(item);
+                cart.setTotalPrice(itemsTotalPrice(cartItems));
+                this.cartRepository.save(cart);
+                return;
+            }
+        }
+
+        product.setCartItem(cartItem);
         this.productRepository.save(product);
 
         cartItems.add(cartItem);
@@ -82,18 +95,18 @@ public class CartService {
     public void deleteCartItem(Long id, User user) {
         Cart cart = user.getCart();
 
-        Set<CartItem> cartItems = cart.getCartItems();
-
         CartItem item = this.cartItemRepository
                 .findByProductId(id);
 
-        cartItems.remove(item);
-        cartItemRepository.deleteById(item.getId());
+        Product product = item.getProduct();
 
-        cart.setTotalPrice(cart.getTotalPrice()
-                .subtract(item.getSubPrice()));
-
-        cart.setCartItems(cartItems);
-        cartRepository.save(cart);
+        item.setProduct(null);
+        product.setCartItem(null);
+        item.setCart(null);
+        cart.getCartItems().remove(item);
+        cart.setTotalPrice(cart.getTotalPrice().subtract(item.getSubPrice()));
+        this.productRepository.save(product);
+        this.cartItemRepository.save(item);
+        this.cartRepository.save(cart);
     }
 }

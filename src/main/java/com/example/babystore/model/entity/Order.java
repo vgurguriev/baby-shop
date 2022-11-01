@@ -22,7 +22,7 @@ public class Order {
     private User user;
     private String email;
 
-    @ManyToMany(mappedBy = "orders")
+    @ManyToMany(mappedBy = "orders", fetch = FetchType.EAGER)
     private List<Product> products = new ArrayList<>();
 
     public Long getId() {
