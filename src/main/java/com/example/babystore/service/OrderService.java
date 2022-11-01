@@ -3,12 +3,14 @@ package com.example.babystore.service;
 import com.example.babystore.model.dto.OrderDto;
 import com.example.babystore.model.entity.*;
 import com.example.babystore.repository.*;
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class OrderService {
@@ -38,6 +40,10 @@ public class OrderService {
             products.add(cartItem.getProduct());
             Product product = cartItem.getProduct();
             product.setSales(product.getSales() + 1);
+            product.setCartItem(null);
+            cartItem.setCart(null);
+            cartItem.setProduct(null);
+            this.cartItemRepository.deleteById(cartItem.getId());
             this.productRepository.save(product);
         }
 
@@ -53,6 +59,8 @@ public class OrderService {
                 .setAddress(orderDto.getAddress())
                 .setCountry(orderDto.getCountry());
 
+        user.getCart().setTotalPrice(BigDecimal.ZERO);
+        userRepository.save(user);
 
     }
 }

@@ -70,6 +70,7 @@ public class ProductController {
                    Model model) {
 
         ProductView productView = this.productService.findAndConvertProductById(id);
+        model.addAttribute("product", productView);
         return "product-details";
     }
 }
