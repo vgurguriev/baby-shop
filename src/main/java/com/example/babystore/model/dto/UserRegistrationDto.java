@@ -15,15 +15,21 @@ public class UserRegistrationDto {
     @NotEmpty
     @Size(min = 3, max = 20)
     private String username;
-    @NotEmpty
+
     @Size(min = 3, max = 20)
-    private String name;
+    private String firstName;
+
+    @Size(min = 3, max = 20)
+    private String lastName;
+
     @NotEmpty
     @Email
     private String email;
+
     @NotEmpty
     @Size(min = 5, max = 20)
     private String password;
+
     @NotEmpty
     @Size(min = 5, max = 20)
     private String confirmPassword;
@@ -34,15 +40,6 @@ public class UserRegistrationDto {
 
     public UserRegistrationDto setUsername(String username) {
         this.username = username;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public UserRegistrationDto setName(String name) {
-        this.name = name;
         return this;
     }
 
@@ -71,5 +68,21 @@ public class UserRegistrationDto {
     public UserRegistrationDto setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
         return this;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

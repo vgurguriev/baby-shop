@@ -1,4 +1,4 @@
-package com.example.babystore.web;
+package com.example.babystore.controller;
 
 import com.example.babystore.model.view.ProductPictureAndNameView;
 import com.example.babystore.service.ProductService;

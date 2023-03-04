@@ -44,7 +44,7 @@ public class Product {
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     private CartItem cartItem;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "products_orders",
             joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),

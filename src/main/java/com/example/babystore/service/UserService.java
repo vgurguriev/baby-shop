@@ -1,5 +1,6 @@
 package com.example.babystore.service;
 
+import com.example.babystore.exception.DuplicationException;
 import com.example.babystore.model.dto.UserRegistrationDto;
 import com.example.babystore.model.entity.Cart;
 import com.example.babystore.model.entity.User;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -33,7 +35,12 @@ public class UserService {
         this.userDetailsService = userDetailsService;
     }
 
-    public void registerAndLogin(UserRegistrationDto userRegistrationDto) {
+    public void registerAndLogin(UserRegistrationDto userRegistrationDto) throws DuplicationException {
+        Optional<User> user = userRepository.findByUsername(userRegistrationDto.getUsername());
+
+        if (user.isPresent()) {
+            throw new DuplicationException("User with this username already exists!");
+        }
         User userToRegister = this.modelMapper.map(userRegistrationDto, User.class)
                 .setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
 

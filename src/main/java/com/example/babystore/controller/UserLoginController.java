@@ -1,4 +1,4 @@
-package com.example.babystore.web;
+package com.example.babystore.controller;
 
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;

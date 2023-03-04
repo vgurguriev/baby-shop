@@ -26,7 +26,7 @@ public class BabyStoreSecurityConfiguration {
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/users/login", "/users/register", "/offers").permitAll()
-                .antMatchers("/users/profile").authenticated()
+                .antMatchers("/users/profile", "/cart", "/product/add").authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/users/login")

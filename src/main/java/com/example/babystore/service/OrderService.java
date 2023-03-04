@@ -55,9 +55,16 @@ public class OrderService {
                 .setProducts(products);
         this.orderRepository.save(order);
 
+        products.forEach(product -> {
+            product.getOrders().add(order);
+            this.productRepository.save(product);
+        });
+
         user.setCity(orderDto.getCity())
                 .setAddress(orderDto.getAddress())
                 .setCountry(orderDto.getCountry());
+
+        user.getOrders().add(order);
 
         user.getCart().setTotalPrice(BigDecimal.ZERO);
         user.getCart().getCartItems().clear();

@@ -48,16 +48,24 @@
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
-                                                <label class="form-label" for="formName">Your Name</label>
+                                                <label class="form-label" for="formFirstName">Your First Name</label>
                                                 <input type="text"
-                                                       id="formName"
-                                                       th:field="*{name}"
-                                                       th:errorclass="is-invalid"
+                                                       id="formFirstName"
+                                                       th:field="*{firstName}"
                                                        name="name"
                                                        class="form-control"/>
-                                                <p class="invalid-feedback errors alert alert-danger">
-                                                    Name is required.
-                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="formLastName">Your Last Name</label>
+                                                <input type="text"
+                                                       id="formLastName"
+                                                       th:field="*{lastName}"
+                                                       name="name"
+                                                       class="form-control"/>
                                             </div>
                                         </div>
 

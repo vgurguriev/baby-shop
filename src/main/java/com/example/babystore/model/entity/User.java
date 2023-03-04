@@ -1,10 +1,7 @@
 package com.example.babystore.model.entity;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,8 +20,27 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(nullable = false)
-    private String name;
+    @Column(name = "first_name")
+    private String firstName;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Column(name = "last_name")
+    private String lastName;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -47,17 +63,25 @@ public class User {
     private String city;
 
     public User(Long id, String username, String password,
-                String email, String name, Set<Role> role) {
+                String email, String firstName, String lastName, Set<Role> role) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.role = role;
         this.orders = new HashSet<>();
     }
 
     public User() {}
+
+    public String getDisplayName() {
+        if (firstName == null || lastName == null) {
+            return username;
+        }
+        return firstName + " " + lastName;
+    }
 
     public Long getId() {
         return id;
@@ -92,15 +116,6 @@ public class User {
 
     public User setEmail(String email) {
         this.email = email;
-        return this;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public User setName(String name) {
-        this.name = name;
         return this;
     }
 
