@@ -1,6 +1,7 @@
 package com.example.babystore.service;
 
 import com.example.babystore.exception.DuplicationException;
+import com.example.babystore.exception.FieldNotMatchException;
 import com.example.babystore.model.dto.UserRegistrationDto;
 import com.example.babystore.model.entity.Cart;
 import com.example.babystore.model.entity.User;
@@ -35,11 +36,19 @@ public class UserService {
         this.userDetailsService = userDetailsService;
     }
 
-    public void registerAndLogin(UserRegistrationDto userRegistrationDto) throws DuplicationException {
-        Optional<User> user = userRepository.findByUsername(userRegistrationDto.getUsername());
-
-        if (user.isPresent()) {
+    public void registerAndLogin(UserRegistrationDto userRegistrationDto) throws DuplicationException, FieldNotMatchException {
+        Optional<User> optionalUsername = userRepository.findByUsername(userRegistrationDto.getUsername());
+        if (optionalUsername.isPresent()) {
             throw new DuplicationException("User with this username already exists!");
+        }
+
+        Optional<User> optionalEmail = userRepository.findByEmail(userRegistrationDto.getEmail());
+        if (optionalEmail.isPresent()) {
+            throw new DuplicationException("User with this email already exists!");
+        }
+
+        if (!userRegistrationDto.getPassword().equals(userRegistrationDto.getConfirmPassword())) {
+            throw new FieldNotMatchException("Password and confirm password should match!");
         }
         User userToRegister = this.modelMapper.map(userRegistrationDto, User.class)
                 .setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));

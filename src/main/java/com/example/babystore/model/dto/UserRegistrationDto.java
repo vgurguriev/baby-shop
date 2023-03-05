@@ -6,11 +6,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-@FieldMatch(
-        first = "password",
-        second = "confirmPassword",
-        message = "Passwords do not match."
-)
+//@FieldMatch(
+//        first = "password",
+//        second = "confirmPassword",
+//        message = "Passwords do not match."
+//)
 public class UserRegistrationDto {
     @NotEmpty
     @Size(min = 3, max = 20)

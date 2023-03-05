@@ -1,6 +1,7 @@
 package com.example.babystore.controller;
 
 import com.example.babystore.exception.DuplicationException;
+import com.example.babystore.exception.FieldNotMatchException;
 import com.example.babystore.model.dto.UserRegistrationDto;
 import com.example.babystore.service.UserService;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -50,9 +51,10 @@ public class UserRegisterController {
         try {
             this.userService.registerAndLogin(userRegistrationDto);
             return "redirect:/";
-        } catch (DuplicationException e) {
-            model.addAttribute("ex", "Invalid username");
-        return "cart";
+        } catch (DuplicationException | FieldNotMatchException e) {
+            String message = e.getMessage();
+            model.addAttribute("ex", message);
         }
+        return "cart";
     }
 }
