@@ -6,8 +6,26 @@ public class OrderDto {
     private String username;
     private String email;
     private String address;
-    private String country;
-    private String city;
+    private Long countryId;
+    private Long cityId;
+    private String street;
+    private int streetNumber;
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public int getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(int streetNumber) {
+        this.streetNumber = streetNumber;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -54,21 +72,19 @@ public class OrderDto {
         return this;
     }
 
-    public String getCountry() {
-        return country;
+    public Long getCountryId() {
+        return countryId;
     }
 
-    public OrderDto setCountry(String country) {
-        this.country = country;
-        return this;
+    public void setCountryId(Long countryId) {
+        this.countryId = countryId;
     }
 
-    public String getCity() {
-        return city;
+    public Long getCityId() {
+        return cityId;
     }
 
-    public OrderDto setCity(String city) {
-        this.city = city;
-        return this;
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
     }
 }

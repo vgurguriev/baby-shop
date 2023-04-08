@@ -1,16 +1,14 @@
 package com.example.babystore.service;
 
+import com.example.babystore.exception.NotFoundException;
 import com.example.babystore.model.dto.OrderDto;
 import com.example.babystore.model.entity.*;
 import com.example.babystore.repository.*;
-import com.sun.xml.bind.v2.TODO;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class OrderService {
@@ -19,20 +17,26 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
     private final CartItemRepository cartItemRepository;
-    private final CartRepository cartRepository;
+    private final CountryRepository countryRepository;
+    private final CityRepository cityRepository;
 
     public OrderService(ProductRepository productRepository,
                         OrderRepository orderRepository,
-                        UserRepository userRepository, CartItemRepository cartItemRepository, CartRepository cartRepository) {
+                        UserRepository userRepository,
+                        CartItemRepository cartItemRepository,
+                        CartRepository cartRepository,
+                        CountryRepository countryRepository,
+                        CityRepository cityRepository) {
         this.productRepository = productRepository;
 
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.cartItemRepository = cartItemRepository;
-        this.cartRepository = cartRepository;
+        this.countryRepository = countryRepository;
+        this.cityRepository = cityRepository;
     }
 
-    public void addOrder(OrderDto orderDto, User user) {
+    public void addOrder(OrderDto orderDto, User user) throws NotFoundException {
 
         List<Product> products = new ArrayList<>();
 
@@ -60,9 +64,14 @@ public class OrderService {
             this.productRepository.save(product);
         });
 
-        user.setCity(orderDto.getCity())
-                .setAddress(orderDto.getAddress())
-                .setCountry(orderDto.getCountry());
+        Country country = countryRepository.findById(orderDto.getCountryId())
+                .orElseThrow(() -> new NotFoundException("Country not found."));
+        City city = cityRepository.findById(orderDto.getCityId())
+                .orElseThrow(() -> new NotFoundException("City not found."));
+        Address address = new Address();
+        address.setCountry(country);
+        address.setCity(city);
+        user.setAddress(address);
 
         user.getOrders().add(order);
 

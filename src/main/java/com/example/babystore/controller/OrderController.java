@@ -1,5 +1,6 @@
 package com.example.babystore.controller;
 
+import com.example.babystore.exception.NotFoundException;
 import com.example.babystore.model.dto.OrderDto;
 import com.example.babystore.model.entity.User;
 import com.example.babystore.model.view.CartView;
@@ -64,7 +65,11 @@ public class OrderController {
             return "redirect:/order";
         }
         User user = this.userService.findByUsername(principal.getName());
-        this.orderService.addOrder(orderDto, user);
+        try {
+            this.orderService.addOrder(orderDto, user);
+        } catch (NotFoundException e) {
+            return e.getMessage();
+        }
         return "redirect:/";
     }
 }

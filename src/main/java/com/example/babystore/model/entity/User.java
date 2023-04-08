@@ -23,22 +23,6 @@ public class User {
     @Column(name = "first_name")
     private String firstName;
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     @Column(name = "last_name")
     private String lastName;
 
@@ -56,11 +40,7 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Order> orders;
 
-    private String address;
-
-    private String country;
-
-    private String city;
+    private Address address;
 
     public User(Long id, String username, String password,
                 String email, String firstName, String lastName, Set<Role> role) {
@@ -146,30 +126,27 @@ public class User {
         return this;
     }
 
-    public String getAddress() {
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Address getAddress() {
         return address;
     }
 
-    public User setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
-        return this;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public User setCountry(String country) {
-        this.country = country;
-        return this;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public User setCity(String city) {
-        this.city = city;
-        return this;
     }
 }
